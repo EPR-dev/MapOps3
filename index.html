@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why MapOps — Territory Intelligence for Sales Leaders</title>
+  <meta name="description" content="Why MapOps: maps bring spatial clarity to sales operations — find whitespace, align reps, and accelerate pipeline with territory intelligence." />
+  <meta name="robots" content="index,follow" />
+<meta property="og:title" content="Why MapOps — Territory Intelligence for Sales Leaders" />
+  <meta property="og:description" content="See your market on a map. Spot whitespace. Move faster." />
+  <meta property="og:type" content="website" />
+<meta property="og:image" content="https://docs.fused.io/assets/images/antonius_app-94f1c8b61b32d1d4eb9e2507b822cc06.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f13; --card:#111820; --ink:#f3f8ff; --muted:#c2d0e0;
+      --brand:#5eead4; --brand2:#2ae5c2; --brand-accent:#30ffd1;
+      --brand-ink:#042b26; --ring:rgba(94,234,212,.55); --line:rgba(255,255,255,.12);
+      --radius:16px; --shadow:0 12px 28px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(1400px 900px at 80% -200px, rgba(42,229,194,.18), transparent 60%),
+        radial-gradient(800px 600px at 10% 100%, rgba(94,234,212,.15), transparent 70%),
+        linear-gradient(180deg,#0a0d11 0%,#0b0f13 100%);
+      color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;
+    }
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1120px, 92vw);margin-inline:auto}
+    .grid{display:grid;gap:24px}
+
+    header{position:sticky;top:0;background:rgba(10,13,17,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:40}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px;color:var(--brand)}
+    .logo-dot{width:12px;height:12px;border-radius:50%;background:var(--brand2);box-shadow:0 0 0 6px rgba(42,229,194,.2)}
+    .nav-links{display:flex;gap:18px}
+
+    .btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--brand2),var(--brand));color:var(--brand-ink);padding:10px 16px;border-radius:12px;font-weight:700;border:1px solid rgba(0,0,0,.08);box-shadow:0 6px 18px rgba(42,229,194,.3);transition:transform .2s ease,background .3s ease}
+    .btn:hover{transform:translateY(-2px);background:linear-gradient(135deg,var(--brand-accent),var(--brand))}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--brand2)}
+    .btn.ghost:hover{color:var(--brand2);border-color:var(--brand)}
+
+    .hero{padding:80px 0 40px;background:radial-gradient(1200px 800px at 85% -50px,rgba(42,229,194,.18),transparent 70%)}
+    .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}
+    .title{font-size:clamp(36px, 5.2vw, 58px);line-height:1.1;margin:0 0 14px;background:linear-gradient(90deg,var(--brand-accent),var(--brand));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 10px rgba(94,234,212,.3)}
+    .subtitle{font-size:clamp(18px, 2.3vw, 23px);color:var(--ink);opacity:0.9;margin:0 0 22px}
+
+    .section{padding:60px 0;position:relative}
+    .section::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.08;background:radial-gradient(circle at 80% 10%,var(--brand2),transparent 70%)}
+
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);transition:transform .3s ease,border-color .3s ease}
+    .card:hover{transform:translateY(-4px);border-color:var(--brand-accent)}
+    .muted{color:#d2deea}
+    .cards{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--brand);border-radius:999px;color:var(--brand2);background:rgba(42,229,194,.1)}
+    h2.section-heading{color:var(--brand);text-shadow:0 0 8px rgba(94,234,212,.3)}
+
+    /* Heatmap mock styles */
+    .heatmap{position:relative;border-radius:16px;overflow:hidden;border:2px solid var(--brand);background:linear-gradient(180deg,#0d1319,#11161c);min-height:320px}
+    .heatmap .tile{position:absolute;filter:blur(18px);opacity:.8}
+    .heatmap .tile::before{content:"";position:absolute;inset:-40px;border-radius:50%;background:radial-gradient(circle at 50% 50%, rgba(42,229,194,.9), rgba(94,234,212,.1) 55%, transparent 65%)}
+    .heatmap .tile.hot::before{background:radial-gradient(circle at 50% 50%, rgba(255,130,100,.95), rgba(255,130,100,.1) 55%, transparent 65%)}
+    .heatmap .gridlines{position:absolute;inset:0;background:linear-gradient(transparent 23px, rgba(255,255,255,.06) 24px), linear-gradient(90deg, transparent 23px, rgba(255,255,255,.06) 24px);background-size:24px 24px;mix-blend-mode:screen;opacity:.4}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav aria-label="Primary navigation">
+        <div class="logo"><span class="logo-dot" aria-hidden="true"></span>MapOps</div>
+        <div class="nav-links">
+          <a href="#compare" class="muted">Why maps</a>
+          <a href="#examples" class="muted">Examples</a>
+          <a href="#pricing" class="muted">Pricing</a>
+          <a href="#testimonials" class="muted">Testimonials</a>
+          <a href="#live-map" class="muted">Live Map</a>
+          <a href="#contact" class="btn">Get a Map Demo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container wrap">
+        <div>
+          <h1 class="title linkable"><a href="#compare">If You Can See It, You Can Sell It.</a></h1>
+          <p class="subtitle">Dashboards tell you what happened. Maps tell you <em>where to go next</em>. MapOps turns your CRM into territory intelligence your team can act on today.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a href="#contact" class="btn">Get a Map Demo</a>
+            <a href="#pricing" class="btn ghost">See pricing</a>
+          </div>
+          <p class="muted" style="margin-top:12px">Privacy-forward. No trackers. Built on fused.io.</p>
+        </div>
+        <figure class="card heatmap" aria-label="Synthetic market heat map mock">
+          <div class="gridlines" aria-hidden="true"></div>
+          <div class="tile" style="left:16%;top:22%;width:120px;height:120px"></div>
+          <div class="tile hot" style="left:38%;top:36%;width:160px;height:160px"></div>
+          <div class="tile" style="left:62%;top:18%;width:140px;height:140px"></div>
+          <div class="tile" style="left:74%;top:54%;width:180px;height:180px"></div>
+          <div class="tile hot" style="left:22%;top:66%;width:140px;height:140px"></div>
+          <div class="tile" style="left:52%;top:72%;width:120px;height:120px"></div>
+          <figcaption class="muted" style="position:absolute;bottom:10px;left:12px;background:rgba(0,0,0,.35);padding:6px 10px;border-radius:999px;border:1px solid var(--line)">Mock heat map for concept only</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Compare & 30 days -->
+    <section id="compare" class="section">
+      <div class="container grid" style="grid-template-columns:1fr 1fr">
+        <div class="card">
+          <h2 class="linkable" style="margin:0 0 8px;font-size:26px"><a href="#examples">Maps vs. Dashboards</a></h2>
+          <ul class="muted" style="margin:12px 0 0;display:grid;gap:10px;padding-left:18px">
+            <li><strong>Action, not hindsight.</strong> Dashboards summarize; maps reveal <em>where</em> to deploy reps next week.</li>
+            <li><strong>Territory clarity.</strong> Visualize boundaries, overlaps, and blind spots at a glance.</li>
+            <li><strong>Context that travels.</strong> Reps can open a shared map on the road and route the day in minutes.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2 class="linkable" style="margin:0 0 8px;font-size:26px"><a href="#examples">What teams achieve in 30 days</a></h2>
+          <ul class="muted" style="margin:12px 0 0;display:grid;gap:10px;padding-left:18px">
+            <li>Re-cut territories to match opportunity density.</li>
+            <li>Stand up a prospecting map with route-ready clusters.</li>
+            <li>Align weekly field plans around drive-time areas.</li>
+            <li>Share snapshots in pipeline reviews to kill opinion wars.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Examples -->
+    <section id="examples" class="section">
+      <div class="container">
+        <h2 class="section-heading linkable" style="margin:0 0 8px;font-size:26px"><a href="#pricing">Example use cases</a></h2>
+        <p class="muted" style="margin:0 0 18px">A few ways MapOps lands value across go-to-market motions.</p>
+        <div class="grid cards">
+          <article class="card"><h3>Whitespace finder</h3><p class="muted">Blend TAM layers with your accounts to highlight high-density target pockets your reps aren’t touching yet.</p></article>
+          <article class="card"><h3>Drive-time routing</h3><p class="muted">Auto-cluster leads into day-routes (e.g., 30–45–60 min rings) so field reps can stack meetings efficiently.</p></article>
+          <article class="card"><h3>Territory re-cut</h3><p class="muted">Rebalance books using opportunity density + existing pipeline so coverage matches reality, not zip-code myths.</p></article>
+          <article class="card"><h3>Event radius blitz</h3><p class="muted">Planning a conference? Pull a contact heat map around the venue, pre-book meetings, and send geo-personalized outreach.</p></article>
+          <article class="card"><h3>Competitor overlap analysis</h3><p class="muted">Identify where competitor presence is strongest and overlay your active accounts to uncover head-to-head opportunities.</p></article>
+          <article class="card"><h3>Market expansion readiness</h3><p class="muted">Layer incentives, solar adoption, or demographic fit to pinpoint ideal pilot regions before committing resources.</p></article>
+        </div>
+        <div class="badge" style="margin-top:14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3l9 4.5v9L12 21l-9-4.5v-9L12 3z" stroke="#5eead4"/></svg>Powered by fused.io</div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="section">
+      <div class="container">
+        <h2 class="section-heading linkable" style="margin:0 0 8px;font-size:26px"><a href="#testimonials">Pricing</a></h2>
+        <p class="muted" style="margin:0 0 18px">Simple pricing that scales with your sales team.</p>
+        <div class="grid cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+          <article class="card" aria-label="Starter plan">
+            <h4>Starter</h4>
+            <p class="muted" style="margin:6px 0 10px"><strong style="font-size:22px">$199</strong> <span class="muted">/ one-time</span></p>
+            <ul class="muted" style="margin:0;display:grid;gap:8px;padding-left:18px">
+              <li>3 territory maps</li>
+              <li>Interactive HTML + PDF export</li>
+              <li>72-hour delivery</li>
+            </ul>
+          </article>
+          <article class="card" aria-label="Team plan">
+            <h4>Team</h4>
+            <p class="muted" style="margin:6px 0 10px"><strong style="font-size:22px">$499</strong> <span class="muted">/ month</span></p>
+            <ul class="muted" style="margin:0;display:grid;gap:8px;padding-left:18px">
+              <li>Up to 4 maps per month</li>
+              <li>Custom branding & collaboration</li>
+              <li>48-hour turnaround</li>
+              <li>Dedicated account support</li>
+            </ul>
+          </article>
+          <article class="card" aria-label="Enterprise plan">
+            <h4>Enterprise</h4>
+            <p class="muted" style="margin:6px 0 10px"><strong style="font-size:22px">$1,499</strong> <span class="muted">/ month</span></p>
+            <ul class="muted" style="margin:0;display:grid;gap:8px;padding-left:18px">
+              <li>Unlimited maps</li>
+              <li>Custom data enrichment</li>
+              <li>Quarterly strategy sessions</li>
+              <li>Private hosting + API integration</li>
+            </ul>
+          </article>
+          <article class="card" aria-label="Enablement training">
+            <h4>MapOps Enablement Training</h4>
+            <p class="muted" style="margin:6px 0 10px"><strong style="font-size:22px">$2,499</strong> <span class="muted">/ engagement</span></p>
+            <ul class="muted" style="margin:0;display:grid;gap:8px;padding-left:18px">
+              <li>Private session with your sales leadership</li>
+              <li>Full Fused.io setup and onboarding</li>
+              <li>Custom map templates for your territories</li>
+              <li>30-day follow-up support & documentation</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section" style="background:radial-gradient(800px 400px at 80% 10%,rgba(42,229,194,.12),transparent)">
+      <div class="container">
+        <h2 class="linkable" style="margin:0 0 8px;font-size:26px"><a href="#live-map">What Sales Leaders Say</a></h2>
+        <div class="grid cards">
+          <div class="card"><p>“MapOps gave us visibility into our sales coverage that we didn’t know we were missing. We restructured territories in under a week.”</p><p class="muted">— Jamie L., VP of Sales</p></div>
+          <div class="card"><p>“Seeing our pipeline spatially helped uncover overlap between reps and wasted travel time. The ROI was immediate.”</p><p class="muted">— Chris D., Sales Ops Manager</p></div>
+          <div class="card"><p>“Our team used MapOps to identify 15% more active opportunities just by visualizing whitespace on a map.”</p><p class="muted">— Maya S., Regional Director</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live example map -->
+    <section id="live-map" class="section">
+      <div class="container">
+        <h2 class="linkable" style="margin:0 0 8px;font-size:26px"><a href="#faq">Live Example Map</a></h2>
+        <p class="muted" style="margin:0 0 18px">This live example shows territory clusters, drive-time zones, and account density. Open it in a new tab to explore full-screen.</p>
+        <div class="card" style="text-align:center">
+          <iframe class="responsive" title="MapOps Live Example" src="https://www.fused.io/server/v1/realtime-shared/fsh_JC706aFq6u6KyaVVgC5Nz/run/file?dtype_out_raster=png&dtype_out_vector=html" style="width:100%;height:520px;border-radius:12px;border:1px solid var(--line)"></iframe>
+          <div style="margin-top:12px">
+            <a class="btn ghost" target="_blank" rel="noopener" href="https://www.fused.io/server/v1/realtime-shared/fsh_JC706aFq6u6KyaVVgC5Nz/run/file?dtype_out_raster=png&dtype_out_vector=html">Open full screen</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <div class="container">
+        <h2 class="linkable" style="margin:0 0 8px;font-size:26px"><a href="#contact">FAQ</a></h2>
+        <div class="grid cards">
+          <details class="card"><summary><strong>How fast can we see a first map?</strong></summary><p class="muted">Typically within 48–72 hours once we have your data sample and goals.</p></details>
+          <details class="card"><summary><strong>What data do we need to start?</strong></summary><p class="muted">A CSV export or API access to leads/accounts with basic fields: name, address (or lat/long), segment, and owner (optional).</p></details>
+          <details class="card"><summary><strong>Who maintains the maps?</strong></summary><p class="muted">We can manage updates, or we’ll train your team to self-serve with MapOps templates.</p></details>
+          <details class="card"><summary><strong>Is our data private?</strong></summary><p class="muted">Yes — privacy by design. You control hosting. No cookies or trackers on your viewer links.</p></details>
+          <details class="card"><summary><strong>Can MapOps integrate with my CRM?</strong></summary><p class="muted">Yes. We connect via API or secure CSV import for Salesforce, HubSpot, and most major CRM systems.</p></details>
+          <details class="card"><summary><strong>Do you offer training or onboarding?</strong></summary><p class="muted">Absolutely. Our enablement sessions teach your leaders how to build and interpret maps for ongoing use.</p></details>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap">
+          <a href="#contact" class="btn">Get a Map Demo</a>
+          <a href="#pricing" class="btn ghost">See pricing</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact form -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2 class="linkable" style="margin:0 0 8px;font-size:26px"><a href="#top">Get a Map Demo</a></h2>
+        <p class="muted" style="margin:0 0 18px">See your territories in action. We’ll respond the same day.</p>
+        <div class="grid" style="grid-template-columns:1.1fr .9fr;align-items:start">
+          <form id="lead" class="card" onsubmit="return submitLead(event)" aria-describedby="contact-help">
+            <label>Full name<br/>
+              <input required name="name" class="input" placeholder="Jordan Lee" autocomplete="name" />
+            </label>
+            <label>Work email<br/>
+              <input required name="email" type="email" class="input" placeholder="jordan@company.com" autocomplete="email" inputmode="email" />
+            </label>
+            <label>Company<br/>
+              <input name="company" class="input" placeholder="Acme Logistics" autocomplete="organization" />
+            </label>
+            <label>What do you want to map?<br/>
+              <textarea name="goal" class="input" rows="5" placeholder="Example: 1,200 prospects in SoCal, show clusters and drive-day routes"></textarea>
+            </label>
+            <!-- Honeypot -->
+            <label class="visually-hidden" aria-hidden="true">Do not fill this out
+              <input name="website" tabindex="-1" autocomplete="off" />
+            </label>
+            <button class="btn" type="submit">Get a Map Demo</button>
+            <p id="thanks" class="muted" style="display:none;margin-top:10px">Thanks! We'll reach out shortly.</p>
+            <p id="contact-help" class="muted" style="margin:0">By submitting, you agree to be contacted about a demo. We don't track you.</p>
+          </form>
+          <div class="card">
+            <h3>What you’ll get</h3>
+            <p class="muted">A live MapOps map built on fused.io showing your market clusters, drive-time zones, and pipeline overlays — ready for action.</p>
+            <div class="badge" style="margin-top:10px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3l9 4.5v9L12 21l-9-4.5v-9L12 3z" stroke="#5eead4"/></svg>
+              Powered by fused.io
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <div>© <span id="year"></span> MapOps. All rights reserved.</div>
+      <div class="muted">Privacy friendly. No cookies. No trackers.</div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function submitLead(e){
+      e.preventDefault();
+      const data = new FormData(e.target);
+      if (data.get('website')) return false; // honeypot
+      const subject = encodeURIComponent('MapOps demo request');
+      const body = encodeURIComponent(
+        `Name: ${data.get('name')}\nEmail: ${data.get('email')}`+
+        (data.get('company')?`\nCompany: ${data.get('company')}`:'')+
+        (data.get('goal')?`\nGoal: ${data.get('goal')}`:'')
+      );
+      window.location.href = `mailto:hello@mapops.dev?subject=${subject}&body=${body}`;
+      const thanks = document.getElementById('thanks');
+      if (thanks) thanks.style.display = 'block';
+      e.target.reset();
+      return false;
+    }
+  </script>
+</body>
+</html>
